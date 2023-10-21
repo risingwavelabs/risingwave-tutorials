@@ -1,0 +1,8 @@
+{
+  "label": "Get Hands Dirty",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Deploy RisingWave and other systems in minutes."
+  }
+}
