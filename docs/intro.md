@@ -48,12 +48,12 @@ In other words, **users can use RisingWave to replace**:
 - Systems like ElasticSearch, etc., for full-text search.
 
 
-## Why Use RisignWave for Stream Processing?
+## Why Use RisingWave for Stream Processing?
 
 
 On the market, there are already some well-known open-source stream processing systems, such as Apache Flink and Apache Spark Streaming. So why do we need to use RisingWave?
 
-RisingWave addresses several common pain points of existing stream processing systems:
+**RisingWave addresses several common pain points of existing stream processing systems:**
 
 ### Steep Learning Curve
 
