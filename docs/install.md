@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Install and Start
+# Quick Install
 
 ## Installation Mode
 
@@ -12,13 +12,26 @@ RisingWave has the following installation modes:
 
 - **Single-node Docker Deployment Mode ([Official Doc](https://docs.risingwave.com/docs/current/risingwave-trial/?method=docker-compose))**: Single-node Docker deployment mode is feature-rich, but if you plan to use it in a production environment, think twice. After all, if the physical machine crashes, it will directly lead to system unavailability or data loss;
 
-- **Kubernetes Cluster Deploymnet Mode ([Official Doc](https://docs.risingwave.com/docs/dev/risingwave-kubernetes/))**: Kubernetes cluster deployment mode is the most recommended deployment mode for production environments.
+- **Kubernetes Cluster Deployment Mode ([Official Doc](https://docs.risingwave.com/docs/dev/risingwave-kubernetes/))**: Kubernetes cluster deployment mode is the most recommended deployment mode for production environments.
 
-## Install Now
+:::tip RisingWave Cloud
+
+Not everyone is willing to install systems locally. If you prefer not to install, that's fine, you can also use the **free tier** of [RisingWave Cloud](https://cloud.risingwave.com/) directly. This is the most convenient way to use RisingWave without installation, and it takes only **5 minutes** to get a feature-rich cluster ready.
+:::
+
+
+|  | Time | Feature Set | Production Use? |
+| :: | :: | :: | :: |
+|  [Single-node playground](https://docs.risingwave.com/docs/current/risingwave-trial/?method=overview)   |  5 minutes      | Limited features | No |
+|  [Single-node Docker deployment](https://docs.risingwave.com/docs/current/risingwave-trial/?method=docker-compose)  | 10-20 minutes        | Feature-rich | Yes, but think twice |
+|  [Kubernetes Cluster Deployment](https://docs.risingwave.com/docs/dev/risingwave-kubernetes/)  | May vary        | Feature-rich | Yes (recommended) |
+|  [RisingWave Cloud](https://cloud.risingwave.com/)  | 5 minutes        | Feature-rich | Yes (recommended) |
+
+## Install Playground
 
 Since the purpose of this tutorial is to let everyone understand and use RisingWave, we choose the **single-node playground mode**. Note that this mode operates purely in memory and will automatically stop after being idle for 30 minutes.
 
-The operating system used in this article is **Ubuntu 20.04.6 LTS**. The version of RisingWave to be installed is **1.2.0**. The entire installation process takes about **3-5 minutes**.
+The operating system used in this article is **Ubuntu 20.04.6 LTS**. The version of RisingWave to be installed is **1.2.0**. The entire installation process takes up to **5 minutes**.
 
 ### Download
 ```shell
