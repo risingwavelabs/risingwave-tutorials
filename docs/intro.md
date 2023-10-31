@@ -51,9 +51,14 @@ In other words, **users can use RisingWave to replace**:
 ## Why Use RisingWave for Stream Processing?
 
 
-On the market, there are already some well-known open-source stream processing systems, such as Apache Flink and Apache Spark Streaming. So why do we need to use RisingWave?
+On the market, there are already some well-known open-source stream processing systems, such as Apache Flink and Apache Spark Streaming, and KsqlDB. So why do we need to use RisingWave?
 
-**RisingWave addresses several common pain points of existing stream processing systems:**
+Compared to other stream processing systems, RisingWave mainly focuses on two aspects: **ease-of-use** and **cost-efficiency**. To put it simply:
+
+- RisingWave provides users with a **PostgreSQL-like experience** for stream processing, significantly lowering the barriers to using stream processing technology;
+- RisingWave adopted implemented a **Snowflake-style storage-compute separation architecture**, thereby achieving significant reductions in both computing and storage costs.
+
+From users' perspective, **RisingWave addresses several common pain points of existing stream processing systems:**
 
 ### Steep Learning Curve
 
@@ -99,7 +104,7 @@ In complex stream processing like windowing and joins, many systems experience a
 RisingWave's decoupled compute-storage architecture ensures that the computing state is always remotely persisted, not locally. This means that RisingWave users don't need to worry about the size of internal states. To optimize performance, RisingWave only caches states in local instances.
 :::
 
-### Large Checkpoint Intervals
+### Slow to Recover from Failure
 
 Stream processing systems regularly save checkpoints. In case of failures, the system can resume computation from the most recent checkpoint. The time required for recovery, known as system downtime, is directly related to checkpoint intervals. Many existing stream processing systems have checkpoint intervals of one minute or more. In real production environments, some systems use intervals of 3 minutes, 5 minutes, or even 10 minutes or more. This is because these systems' checkpoint intervals impact performance. Too frequent checkpoints reduce performance significantly, while infrequent checkpoints result in extended downtime during system failures. Such extended downtime is unacceptable for latency-sensitive applications like financial transactions, monitoring, and alerts.
 

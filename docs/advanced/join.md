@@ -80,7 +80,7 @@ The reason is that in stream processing, queries with nested loop join have exce
 |  Right join  | yes        | must be equal-join |
 |  Full outer join  | yes        | must be equal-join |
 |  Natural join  | yes        | yes |
-|  Corss join  | yes        | 否 |
+|  Corss join  | yes        | no |
 |  Self join  | yes        | must be equal-join |
 
 

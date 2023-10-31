@@ -10,7 +10,7 @@ RisingWave has the following installation modes:
 
 - **Single-node Playground Mode ([Official Doc](https://docs.risingwave.com/docs/current/risingwave-trial/?method=overview))**: If you just want to learn how to use RisingWave, then the single-node playground mode should meet basic needs. However, this mode does not support some complex features, such as Change Data Capture (CDC), etc.;
 
-- **Single-node Docker Deployment Mode ([Official Doc](https://docs.risingwave.com/docs/current/risingwave-trial/?method=docker-compose))**: Single-node Docker deployment mode is feature-rich, but if you plan to use it in a production environment, think twice. After all, if the physical machine crashes, it will directly lead to system unavailability or data loss;
+- **Single-node Docker Compose Mode ([Official Doc](https://docs.risingwave.com/docs/current/risingwave-trial/?method=docker-compose))**: Single-node Docker deployment mode is feature-rich, but if you plan to use it in a production environment, think twice. After all, if the physical machine crashes, it will directly lead to system unavailability or data loss;
 
 - **Kubernetes Cluster Deployment Mode ([Official Doc](https://docs.risingwave.com/docs/dev/risingwave-kubernetes/))**: Kubernetes cluster deployment mode is the most recommended deployment mode for production environments.
 
@@ -22,21 +22,33 @@ Not everyone is willing to install systems locally. If you prefer not to install
 
 |  | Time | Feature Set | Production Use? |
 | :: | :: | :: | :: |
-|  [Single-node playground](https://docs.risingwave.com/docs/current/risingwave-trial/?method=overview)   |  5 minutes      | Limited features | No |
-|  [Single-node Docker deployment](https://docs.risingwave.com/docs/current/risingwave-trial/?method=docker-compose)  | 10-20 minutes        | Feature-rich | Yes, but think twice |
+|  [Single-node Playground](https://docs.risingwave.com/docs/current/risingwave-trial/?method=overview)   |  5 minutes      | Limited features | No |
+|  [Single-node Docker Compose](https://docs.risingwave.com/docs/current/risingwave-trial/?method=docker-compose)  | 10-20 minutes        | Feature-rich | Yes, but think twice |
 |  [Kubernetes Cluster Deployment](https://docs.risingwave.com/docs/dev/risingwave-kubernetes/)  | May vary        | Feature-rich | Yes (recommended) |
 |  [RisingWave Cloud](https://cloud.risingwave.com/)  | 5 minutes        | Feature-rich | Yes (recommended) |
 
 ## Install Playground
 
-Since the purpose of this tutorial is to let everyone understand and use RisingWave, we choose the **single-node playground mode**. Note that this mode operates purely in memory and will automatically stop after being idle for 30 minutes.
-
-The operating system used in this article is **Ubuntu 20.04.6 LTS**. The version of RisingWave to be installed is **1.2.0**. The entire installation process takes up to **5 minutes**.
+Since the purpose of this tutorial is to let everyone understand and use RisingWave, we choose the **single-node playground mode**. The entire installation process takes only **5 minutes**. Note that this mode operates purely in memory and will automatically stop after being idle for 30 minutes.
 
 ### Download
+**Mac**
 ```shell
-wget https://github.com/risingwavelabs/risingwave/releases/download/v1.2.0/risingwave-v1.2.0-x86_64-unknown-linux.tar.gz
-tar xvf risingwave-v1.2.0-x86_64-unknown-linux.tar.gz
+brew tap risingwavelabs/risingwave
+brew install risingwave
+risingwave playground
+```
+
+**Ubuntu**
+```shell
+wget https://github.com/risingwavelabs/risingwave/releases/download/v1.3.0/risingwave-v1.3.0-x86_64-unknown-linux.tar.gz
+tar xvf risingwave-v1.3.0-x86_64-unknown-linux.tar.gz
+./risingwave playground
+```
+
+**Docker**
+```shell
+docker run -it --pull=always -p 4566:4566 -p 5691:5691 risingwavelabs/risingwave:latest playground
 ```
 
 ### Start service
