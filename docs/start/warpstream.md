@@ -23,14 +23,26 @@ After creating your cluster, set up a Kafka topic effortlessly. Warpstream Kafka
 
 1. You need to install Warpstream Agent / CLI to interact with the cluster:
 
-`curl https://console.warpstream.com/install.sh | bash`
+```shell
+curl https://console.warpstream.com/install.sh | bash
+```
+
 
 2. After installing Warpstream agent, run the following command in the terminal:
-   
-`warpstream playground`
+```shell  
+warpstream playground
+```
+Now, create a kafka topic, produce and read records from the Warpstream Kafka cluster using Warpstream agent as:
 
-Now, create kafka topic, produce and read records from the Warpstream Kafka cluster using Warpstream agent.
-
+```shell 
+warpstream kcmd --type create-topic --topic helloworld
+```
+```shell 
+warpstream kcmd --type produce --topic helloworld --records "world,,world"
+```
+```shell 
+warpstream kcmd --type fetch --topic helloworld --offset 0
+```
 With these steps, you are on your way to leveraging the capabilities of Warpstream Kafka. Explore the full potential of event streaming for your applications both using RisingWave and Warpstream!
 
 For detailed documentation and client-specific guides, please refer to our [WarpstreamKafka Documentation](https://docs.warpstream.com/warpstream/).
