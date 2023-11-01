@@ -1,10 +1,10 @@
----
+--
 sidebar_position: 2
 ---
 
 # Upstash Kafka Quick Start
 
-Follow these four easy steps to get started with Upstash Kafka.
+Follow these four easy steps to get started with Upstash Kafka:
 
 ## 1. Sign Up for an Upstash Cloud Account
 
