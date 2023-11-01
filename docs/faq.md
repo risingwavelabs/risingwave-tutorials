@@ -9,7 +9,7 @@ Upon first learning RisingWave, readers from different backgrounds often ask man
 
 ## Can RisingWave replace Flink SQL?
 
-RisingWave's capabilities are a superset of Flink SQL. From a capability perspective, Flink SQL users can relatively easily migrate to RisingWave. However, it's important to note that there are still some subtle differences in syntax between RisingWave and Flink SQL, so users may need to rewrite some queries.
+RisingWave's capabilities are a superset of Flink SQL. So, Flink SQL users can relatively easily migrate to RisingWave. However, it's important to note that there are still some subtle differences in syntax between RisingWave and Flink SQL, so users may need to rewrite some queries.
 
 Of course, RisingWave employs PostgreSQL syntax, which is believed to have a much lower learning and usage barrier compared to Flink SQL.
 
@@ -38,9 +38,9 @@ RisingWave uses the same storage system to support internal state management and
 
 Functionally, developers can indeed use a stream processing engine (like Apache Flink) combined with a database (like PostgreSQL) to simulate a streaming database. However, this combination may encounter significant problems in practice.
 
-* From a design perspective, streaming databases use the same set of storage for internal state management and result storage and random querying. Independent databases are clearly not suitable for internal state storage as frequent cross-system data access incurs a huge overhead, which is not desirable for latency-sensitive systems like stream processing systems. In fact, early distributed stream processing engines like Apache Storm and Apache S4 tried this path, but this design didn't continue successfully;
-* From an implementation perspective, ensuring consistency between two independent systems requires establishing a framework to ensure consistency even if one system crashes. Implementing this framework obviously requires more engineering input;
-* From an operations perspective, it's clear that operating two different systems brings very high operational costs;
+* From a design perspective, streaming databases use the same set of storage for internal state management, result storage, and random querying. Independent databases are clearly not suitable for internal state storage as frequent cross-system data access incurs a huge overhead, which is not desirable for latency-sensitive systems like stream processing systems. In fact, early distributed stream processing engines like Apache Storm and Apache S4 tried this approach, but it was not ultimately successful.
+* From an implementation perspective, ensuring consistency between two independent systems requires establishing a framework to ensure consistency even if one system crashes. Implementing this framework obviously requires more engineering input.
+* From an operations perspective, it's clear that operating two different systems brings very high operational costs.
 * From a user experience perspective, the experience of using two systems is significantly different from using a single system.
 
 
@@ -61,11 +61,10 @@ In streaming databases like RisingWave, materialized views are a core capability
 
 To summarize, materialized views in streaming databases like RisingWave have the following important features:
 
-* **Real-time**: Many databases update materialized views asynchronously or require users to update them manually. But on RisingWave, materialized views are updated synchronously, so users can always query the freshest results. Even for complex queries with join, windowing, etc., RisingWave can efficiently handle them synchronously, ensuring the freshness of materialized views;
+* **Real-time**: Many databases update materialized views asynchronously or require users to update them manually. But in RisingWave, materialized views are updated synchronously, so users can always query the freshest results. Even for complex queries with join, windowing, etc., RisingWave can efficiently handle them synchronously, ensuring the freshness of materialized views.
+* **Consistency**: Some databases only provide eventually consistent materialized views, meaning the results on materialized views seen by users are approximate or erroneous. Especially when users create multiple materialized views, due to different refresh strategies for each materialized view, it's hard to see consistent results across materialized views. However, materialized views on RisingWave are consistent; even when accessing multiple materialized views, users will always see correct results, without inconsistencies.
 
-* **Consistency**: Some databases only provide eventually consistent materialized views, meaning the results on materialized views seen by users are approximate or erroneous. Especially when users create multiple materialized views, due to different refresh strategies for each materialized view, it's hard to see consistent results across materialized views. However, materialized views on RisingWave are consistent; even when accessing multiple materialized views, users will always see correct results, without inconsistencies;
-
-* **High Availability**: RisingWave persists materialized views and sets high-frequency checkpoints to ensure rapid fault recovery. When the physical nodes hosting RisingWave crash, RisingWave can achieve second-level recovery and update computation results to the latest state within seconds;
+* **High Availability**: RisingWave persists materialized views and sets high-frequency checkpoints to ensure rapid fault recovery. When the physical nodes hosting RisingWave crash, RisingWave can achieve second-level recovery and update computation results to the latest state within seconds.
 
 * **Stream Processing Semantics**: In the stream processing domain, users can use higher-order syntax, like time windows, watermarks, etc., to process data streams. Traditional databases do not have these semantics, so users often rely on external systems to handle these semantics. RisingWave is a stream processing system, equipped with various complex stream processing semantics, allowing users to operate with SQL statements.
 

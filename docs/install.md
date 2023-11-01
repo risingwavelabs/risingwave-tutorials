@@ -8,10 +8,9 @@ sidebar_position: 2
 
 RisingWave has the following installation modes:
 
-- **Single-node Playground Mode ([Official Doc](https://docs.risingwave.com/docs/current/risingwave-trial/?method=overview))**: If you just want to learn how to use RisingWave, then the single-node playground mode should meet basic needs. However, this mode does not support some complex features, such as Change Data Capture (CDC), etc.;
+- **Single-node Playground Mode ([Official Doc](https://docs.risingwave.com/docs/current/risingwave-trial/?method=overview))**: If you just want to learn how to use RisingWave, then the single-node playground mode should meet basic needs. However, this mode does not support some complex features, such as Change Data Capture (CDC), and some others.
 
-- **Single-node Docker Compose Mode ([Official Doc](https://docs.risingwave.com/docs/current/risingwave-trial/?method=docker-compose))**: Single-node Docker deployment mode is feature-rich, but if you plan to use it in a production environment, think twice. After all, if the physical machine crashes, it will directly lead to system unavailability or data loss;
-
+- **Single-node Docker Compose Mode ([Official Doc](https://docs.risingwave.com/docs/current/risingwave-trial/?method=docker-compose))**: Single-node Docker deployment mode is feature-rich, but if you plan to use it in a production environment, think twice. After all, if the physical machine crashes, it will directly lead to system unavailability or data loss.
 - **Kubernetes Cluster Deployment Mode ([Official Doc](https://docs.risingwave.com/docs/dev/risingwave-kubernetes/))**: Kubernetes cluster deployment mode is the most recommended deployment mode for production environments.
 
 :::tip RisingWave Cloud
@@ -110,4 +109,4 @@ The result should have already been updated:
 (1 row)
 ```
 
-The above is the simplest program to verify whether RisingWave can run correctly. Users should always be able to see the latest results with consistency guarantees in the materialized view.
+The above is the simplest program to verify whether RisingWave runs correctly. Users should always be able to see the latest results with consistency guarantees in the materialized view.
