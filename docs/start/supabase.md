@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Install PostgreSQL with Supabase
+# Install PostgreSQL (via Supabase)
 
 Supabase provides a PostgreSQL database for your project along with a range of functionalities, including authentication, backups, instant APIs, Edge Functions, real-time subscriptions, storage, and vector embeddings.
 

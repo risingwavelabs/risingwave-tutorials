@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
 ---
-# Installing PostgreSQL
+# Install PostgreSQL
 
 Follow these steps to install PostgreSQL on your system:
 ## Step 1: Update Your Package Lists (Linux)
