@@ -1,8 +1,8 @@
---
+---
 sidebar_position: 2
 ---
 
-# Upstash Kafka Quick Start
+# Install Kafka (via Upstash)
 
 Follow these four easy steps to get started with Upstash Kafka:
 

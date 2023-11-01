@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 ---
-# Warpstream Kafka Quick Start
+# Install Kafka (via Warpstream)
 
 Follow these four easy steps to get started with Upstash Kafka.
 
