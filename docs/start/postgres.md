@@ -25,7 +25,7 @@ Now, you can install PostgreSQL. Use the following command for your specific ope
 ### On CentOS and RHEL-based Systems:
 
 ```shell
-sudo yum $ sudo apt-get install postgresql
+sudo yum sudo apt-get install postgresql
 ```
 
 ### On macOS (using Homebrew):
