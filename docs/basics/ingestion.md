@@ -45,9 +45,41 @@ A very fundamental difference between table and source is that table will persis
 
 For instance, if the upstream inputs 5 records: `AA` `BB` `CC` `DD` `EE`, if using table, these 5 records will be persisted within RisingWave; if using source, these records will not be persisted.
 
-The significant advantage of using table to persist records is that it can speed up queries. Naturally, if the data is within the same system, queries will be much more efficient, although the downside is that it occupies storage. Another advantage is the ability to consume data changes. That is to say, if the upstream system deletes or updates a record, this operation will be consumed by RisingWave, thereby modifying the results of the stream computation. On the other hand, source only supports appending records and cannot handle data changes.
 
-Of course, to allow table to accept data changes, a primary key must be specified on the table.
+The following image illustrates the logic of creating a `table` in RisingWave.
+
+<img
+  src={require('../img/create_table_mv.png').default}
+  alt="Create table in RisingWave."
+/>
+
+
+Here are a few key points worth noting:
+
+- When a user sends a `create table` request, the corresponding table will be immediately created and populated with data.
+- When a user creates a materialized view on the existing table, RisingWave will start reading data from the table and perform streaming computation.
+- RisingWave's batch processing engine supports direct batch reading of the table. Users can send ad-hoc queries to directly access the data within the table.
+
+The significant advantage of using table to persist records is that it can speed up queries. Naturally, if the data is within the same system, queries will be much more efficient, although the downside is that it occupies storage. Another advantage is the ability to consume data changes. That is to say, if the upstream system deletes or updates a record, this operation will be consumed by RisingWave, thereby modifying the results of the stream computation. On the other hand, source only supports appending records and cannot handle data changes. To allow table to accept data changes, a primary key must be specified on the table.
+
+The following image illustrates the logic of creating a source in RisingWave.
+
+<img
+  src={require('../img/create_source_mv.png').default}
+  alt="Create source in RisingWave."
+/>
+
+Here are a few important points to note:
+
+- When a user sends a `create source` request, no physical objects are created, and data is not immediately read from the source.
+- Data from the source is only read when a user creates materialized views or sinks on that source.
+- In RisingWave version 1.3 (and earlier), the batch processing engine only supports batch reading from Kafka sources. When users send random queries to access the source, exceptions will be raised.
+
+:::tip Why is it designed this way?
+Some users do not want to persist data in RisingWave. However, if the data is not persisted in RisingWave, RisingWave cannot obtain **ownership** of the data. If random querying of source data is supported, it means that RisingWave is required to directly read the data stored in the upstream system. This cross-system data read is likely to cause data inconsistency issues, as RisingWave cannot determine whether there are other users in the upstream system who are writing data concurrently. Furthermore, frequent cross-system access can cause a significant drop in system performance. To ensure consistency and performance, RisingWave's **initial design** does not support random querying of `source`.
+
+Of course, as you may have seen, some databases, like PostgreSQL (requires plugin), support random access to external data sources. Based on users' requests, RisignWave has supported querying data directly from Kafka source. More systems may be supported in the future, based on the user requests. If you need this feature, you are welcome to propose and discuss it with us on the [roadmap page](https://github.com/risingwavelabs/risingwave/issues/13115).
+:::
 
 ## Sample Code
 
@@ -146,13 +178,7 @@ Received results:
 ERROR:  QueryError: Scheduler error: Unsupported to query directly from this source
 ```
 
-This result is as expected. Because in RisingWave, table will persist data, while source will not, so users cannot query the source results.
-
-:::tip Why is it designed this way?
-Some users do not want to persist data in RisingWave. However, if the data is not persisted in RisingWave, RisingWave cannot obtain **ownership** of the data. If random querying of source data is supported, it means that RisingWave is required to directly read the data stored in the upstream system. This cross-system data read is likely to cause data inconsistency issues, as RisingWave cannot determine whether there are other users in the upstream system who are writing data concurrently. Furthermore, frequent cross-system access can cause a significant drop in system performance. To ensure consistency and performance, RisingWave does not support random querying of source.
-
-Of course, as you may have seen, some databases, like PostgreSQL (requires plugin), support random access to external data sources. RisingWave does not currently support such random access, but it may be added to the long-term development plan. If you have a need for this feature, you are welcome to propose and discuss it with us.
-:::
+This result is as expected. Because in RisingWave, users cannot directly query a `source` (unless it's from Kafka).
 
 ### Stream processing in action
 

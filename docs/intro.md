@@ -8,7 +8,7 @@ This article aims to help everyone understand what RisingWave is within **5 minu
 
 :::danger Note 1
 
-This tutorial may not guarantee synchronization with the official documentation (based on the RisingWave 1.2.0 version released in September 2023 when this tutorial was written).  The purpose of this tutorial is to help learn RisingWave streaming database swiftly. For detailed information, readers are advised to refer to the [official documentation](https://docs.risingwave.com/).
+This tutorial may not guarantee synchronization with the official documentation (based on the RisingWave version 1.3.0 released in October 2023 when this tutorial was written).  The purpose of this tutorial is to help learn RisingWave streaming database swiftly. For detailed information, readers are advised to refer to the **[official documentation](https://docs.risingwave.com/)**.
 
 :::
 
@@ -23,6 +23,11 @@ We welcome suggestions from everyone who is interested in RisingWave, stream pro
 RisingWave is a distributed SQL streaming database. In simple terms, it allows users to handle stream data using a SQL database approach, performing continuous real-time stream processing, along with data storage and ad-hoc query access functionalities.
 
 RisingWave is an open-source (Apache 2.0 license) system. It is compatible with the PostgreSQL wire protocol, meaning that users can use RisingWave just like they use PostgreSQL.
+
+<img
+  src={require('./img/new_archi_grey.png').default}
+  alt="RisingWave Architecture"
+/>
 
 **Users can use RisingWave for**:
 

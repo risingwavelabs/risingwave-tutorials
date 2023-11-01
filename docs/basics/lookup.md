@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Ad-hoc Queries and Visualization
 
-Like traditional databases, RisingWave can store data and allow users to perform ad-hoc queries on it. However, it's important to note that the _source_ in RisingWave does not persist data, and therefore cannot be directly queried ad-hoc by users. The main reason relates to data ownership, data consistency, and performance issues. Interested readers can refer to the discussion in [previous article](../basics/ingestion).
+Like traditional databases, RisingWave can store data and allow users to perform ad-hoc queries on it. However, it's important to note that the _source_ in RisingWave does not persist data, and RisingWave does not support directly quering the _source_, unless it's from Kafka. The main reason relates to data ownership, data consistency, and performance issues. Interested readers can refer to the discussion in [previous article](../basics/ingestion).
 
 | Functions | Tables | Sources | Materialized Views |
 | :: | :: | :: | :: |
