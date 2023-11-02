@@ -37,7 +37,7 @@ After creating a table or source, RisingWave will continuously consume data from
 | Functionalities | `table` | `source` |
 | :: | :: | :: |
 | Support persisting data     | yes       | no |
-| Support primary key   | yes        | yes |
+| Support primary key   | yes        | no |
 | Supports appending data  | yes        | yes |
 | Supports updating/deleting data   | yes, but a primary key needs to be defined       | no |
 
