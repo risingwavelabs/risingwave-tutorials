@@ -69,7 +69,7 @@ WITH(
 After successfully creating a source table in RisingWave, you can query it as:
 
 ```sql
-SELECT * employees;
+SELECT * FROM employees;
 ```
 Congratulations, you have successfully ingested data from Supabase, and then, query the data in the RisingWave.
 
