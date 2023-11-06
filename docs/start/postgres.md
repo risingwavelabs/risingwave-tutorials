@@ -111,9 +111,9 @@ After succesfully deploying RisingWave cluster, create a source table in RisingW
 ```sql
 CREATE TABLE employees (
     employee_id INT,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    department VARCHAR(50),
+    first_name VARCHAR,
+    last_name VARCHAR,
+    department VARCHAR,
     PRIMARY KEY (employee_id)
 )
 WITH (
