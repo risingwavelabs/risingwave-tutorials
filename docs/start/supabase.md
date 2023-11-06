@@ -26,4 +26,13 @@ Enter the name of the organization, and select "New Project" and assign a name, 
 
 After deploying the database, you can use it as a spreadsheet with the Table Editor or utilize the SQL Editor for more advanced functions. You can also interact with the Supabase database using client libraries.
 
+<img width="925" alt="3" src="https://github.com/fahadullahshah261/risingwave-tutorials/assets/99340455/baae1c34-388d-4a8f-9587-753dd9b82399">
+
+
+Now, the Table Editor is as follows:
+
+<img width="938" alt="4" src="https://github.com/fahadullahshah261/risingwave-tutorials/assets/99340455/5fe9c935-dcc7-4184-b0f1-23ec25e26423">
+
+
+
 For more information about Supabase, please refer to [Supabase's official documentation](https://supabase.com/docs).
