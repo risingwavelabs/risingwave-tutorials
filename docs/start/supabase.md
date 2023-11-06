@@ -10,7 +10,7 @@ Follow these steps to set up a PostgreSQL database using Supabase:
 
 ## 1. Sign Up for a Supabase Account
 
-Start by signing up for a free Supabase account, which will grant you access to our PostgreSQL services. To create your account, visit [Supabase Account](https://supabase.com/dashboard/sign-up).
+Start by signing up for a free Supabase account, which will grant you access to PostgreSQL services. To create your account, visit [Supabase Account](https://supabase.com/dashboard/sign-up).
 
 <img width="930" alt="1" src="https://github.com/fahadullahshah261/risingwave-tutorials/assets/99340455/3ec1d1bc-c499-415e-8144-a61d8ada07c4">
 
