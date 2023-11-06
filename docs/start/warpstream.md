@@ -81,3 +81,5 @@ This shows the following result:
  page_6  |            7 |               6 | 2023-07-26 19:03:03
 ```
 Congratulations, you successfully ingested data from Warpstream into RisingWave, created a materialized view and then, queried the materialized view in RisingWave.
+
+For more detailed information about the integration of RisingWave with Warpstream, please refer to [Warpstream documentation](https://docs.warpstream.com/warpstream/how-to/integrations/use-warpstream-with-risingwave).
