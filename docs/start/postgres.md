@@ -6,7 +6,7 @@ sidebar_position: 4
 Follow these steps to install PostgreSQL on your system:
 ## Step 1: Update Your Package Lists (Linux)
 
-If you're using a Linux-based system, it's a good practice to update your package lists to ensure you're installing the latest version of PostgreSQL. Open your terminal and run:
+If you're using a Linux-based system, it's a good practice to update your package lists to ensure you are installing the latest version of PostgreSQL. Open your terminal and run:
 
 ```shell
 sudo apt update
@@ -76,7 +76,7 @@ Now that PostgreSQL is installed and you have access to the PostgreSQL prompt, l
 
 ```sql
 CREATE TABLE employees (
-    employee_id serial PRIMARY KEY,
+    employee_id INT PRIMARY KEY,
     first_name VARCHAR (50),
     last_name VARCHAR (50),
     department VARCHAR (50)
@@ -86,9 +86,9 @@ CREATE TABLE employees (
 You can insert data into this table using the `INSERT` statement:
 
 ```sql
-INSERT INTO employees (first_name, last_name, department)
-VALUES ('John', 'Doe', 'HR'),
-       ('Jane', 'Smith', 'Marketing');
+INSERT INTO employees (employee_id,first_name, last_name, department)
+VALUES (1,'John', 'Doe', 'HR'),
+       (2,'Jane', 'Smith', 'Marketing');
 ```
 
 And you can query the data using the `SELECT` statement:
@@ -99,4 +99,39 @@ SELECT * FROM employees;
 
 These are just simple examples to get you started with PostgreSQL. You can explore more complex SQL queries and database management tasks in the official PostgreSQL documentation.
 
-That's it! You've successfully installed PostgreSQL, created a table, and performed basic queries on it. You can now start using PostgreSQL for your database needs.
+That's it! You successfully installed PostgreSQL, created a table, and performed basic queries on it.
+
+# Connect PostgreSQL with RisingWave
+
+RisingWave Cloud provides fully managed cloud hosted RisingWave, an easy-to-use, cost-efficient, secure, and highly scalable stream processing database with an intuitive and user-friendly interface, ensuring a seamless user experience.
+
+Create a RisingWave cluster within [RisingWave Cloud](https://cloud.risingwave.com/) using RisingWave free-tier account.
+After succesfully deploying RisingWave cluster, create a source table in RisingWave SQL editor as:
+
+```sql
+CREATE TABLE employees (
+    employee_id INT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    department VARCHAR(50),
+    PRIMARY KEY (employee_id)
+)
+WITH (
+ connector = 'postgres-cdc',
+ hostname = 'localhost'
+ port = '5432',
+ username = 'postgres',
+ password = 'postgres',
+ database.name = 'dev',
+ schema.name = 'public',
+ table.name = 'employees'
+);
+```
+After successfully creating a source table in RisingWave, you can query it as:
+
+```sql
+SELECT * employees;
+```
+Congratulations, you have successfully ingested data from PostgreSQL CDC, and then, query the data in the table. 
+
+For more detailed information related to PostgreSQL CDC, please refer to [RisingWave Documentation](https://docs.risingwave.com/docs/current/ingest-from-postgres-cdc/).
