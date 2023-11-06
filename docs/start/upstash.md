@@ -37,3 +37,33 @@ You're now ready to connect to your Kafka cluster using various Kafka clients. T
 With these four steps, you are on your way to leveraging the capabilities of Upstash Kafka. Explore the full potential of event streaming for your applications!
 
 For detailed documentation and client-specific guides, please refer to our [Upstash Kafka Documentation](https://upstash.com/docs/kafka).
+
+# Connect Upstash with RisingWave
+
+Create a RisingWave cluster within [RisingWave Cloud](https://cloud.risingwave.com/) using RisingWave free-tier account.
+After succesfully deploying RisingWave cluster, create a source table in RisingWave SQL editor as:
+
+```sql
+CREATE TABLE customer(
+customer_id INT,
+customer_name VARCHAR
+)
+WITH(
+connector = 'kafka',
+topic = '<topic-name>', 
+properties.bootstrap.server = '<broker-url>', 
+scan.startup.mode = 'earliest', 
+properties.sasl.mechanism = 'SCRAM-SHA-512', 
+properties.security.protocol = 'sasl_ssl', 
+properties.sasl.username = '<your-username>', 
+properties.sasl.password = ‘<your-password>’'
+) FORMAT PLAIN ENCODE JSON;
+```
+After successfully ingesting data from Upstash into RisingWave, creating a source table, now you can query the data as:
+
+```sql
+SELECT * FROM customer;
+```
+Well done, you have consumed data from an Upstash Kafka topic into the RisingWave source table and then, queried it.
+
+For more information related to the data ingestion from Upstash, please refer to [Upstash Documentaion](https://upstash.com/docs/kafka/overall/getstarted).
