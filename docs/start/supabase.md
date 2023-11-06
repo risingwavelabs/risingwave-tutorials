@@ -36,3 +36,10 @@ Now, the Table Editor is as follows:
 
 
 For more information about Supabase, please refer to [Supabase's official documentation](https://supabase.com/docs).
+
+# Connect Supabase with RisingWave 
+
+RisingWave Cloud provides fully managed cloud hosted RisingWave, an easy-to-use, cost-efficient, secure, and highly scalable stream processing database with an intuitive and user-friendly interface, ensuring a seamless user experience.
+
+Create a RisingWave cluster within [RisingWave Cloud](https://cloud.risingwave.com/) using RisingWave free-tier account.
+After succesfully deploying RisingWave cluster, create a source table in RisingWave SQL editor as:
