@@ -8,6 +8,14 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title,
+.subtitle {
+  color: #ffffff;
 }
 
 @media screen and (max-width: 996px) {
