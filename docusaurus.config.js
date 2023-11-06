@@ -6,7 +6,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "RisingWave Crash Course (Preview)",
+  title: "Tutorials",
   tagline: "The hands-on tutorial for data streaming developers!",
   favicon: "img/favicon.ico",
 
@@ -73,7 +73,7 @@ const config = {
       // Replace with your project's social card
       image: "img/thumbnail.png",
       navbar: {
-        title: "RisingWave Crash Course",
+        title: "RisingWave Tutorials",
         logo: {
           alt: "My Site Logo",
           src: "img/logo.svg",
