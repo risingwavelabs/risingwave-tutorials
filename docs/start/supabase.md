@@ -43,3 +43,34 @@ RisingWave Cloud provides fully managed cloud hosted RisingWave, an easy-to-use,
 
 Create a RisingWave cluster within [RisingWave Cloud](https://cloud.risingwave.com/) using RisingWave free-tier account.
 After succesfully deploying RisingWave cluster, create a source table in RisingWave SQL editor as:
+
+```sql
+CREATE TABLE employees(
+-- The same columns in 'employees' table in Supabase
+    employee_id INT,
+    first_name VARCHAR,
+    last_name VARCHAR,
+    department VARCHAR,
+    PRIMARY KEY (employee_id)
+)
+
+WITH(
+  connector='postgres-cdc',
+  hostname = 'https://xxxx.supabase.co',
+  port = '5432',
+  username = 'postgres',
+  password = 'xxxx',
+  database.name = 'postgres',
+  schema.name = 'public',
+  table.name = 'employees',
+  publication.name = 'rw_publication' -- Database Replications name in Supabase
+);
+```
+After successfully creating a source table in RisingWave, you can query it as:
+
+```sql
+SELECT * employees;
+```
+Congratulations, you have successfully ingested data from Supabase, and then, query the data in the RisingWave.
+
+For more detailed information related to PostgreSQL CDC, please refer to [RisingWave Documentation](https://docs.risingwave.com/docs/current/ingest-from-postgres-cdc/).
