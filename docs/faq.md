@@ -46,7 +46,7 @@ Functionally, developers can indeed use a stream processing engine (like Apache 
 
 ## What's the difference between streaming databases and real-time OLAP databases?
 
-Mainstream streaming databases include RisingWave, KsqlDB, etc., while mainstream real-time OLAP databases include ClickHouse, Apache Druid, etc.
+Mainstream streaming databases include RisingWave, KsqlDB, etc., while mainstream real-time OLAP databases include ClickHouse, Apache Doris, etc.
 
 In both streaming and real-time OLAP databases, users can support predefined queries through materialized views, or send random queries directly. Streaming databases excel in supporting predefined queries, while real-time OLAP databases excel in supporting random queries. This difference leads to the distinction in specific use cases between streaming databases and real-time OLAP databases.
 
