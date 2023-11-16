@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # RisingWave in 5 Minutes
 
-This article aims to help everyone understand what RisingWave is within **5 minutes**.
+This article aims to help everyone understand what RisingWave is within **10 minutes**.
 
 :::danger Note 1
 
@@ -14,7 +14,7 @@ This tutorial may not guarantee synchronization with the official documentation 
 
 :::danger Note 2
 This tutorial is still under continuous development. The latest update was on:
-**October 15, 2023**.
+**November 1, 2023**.
 We welcome suggestions from everyone who is interested in RisingWave, stream processing, databases, or data engineering!
 :::
 
@@ -48,8 +48,8 @@ In other words, **users can use RisingWave to replace**:
 
 **And should not use RisingWave to replace**:
 
-- Systems like PostgreSQL, MySQL, CockroachDB, etc., for transaction processing;
-- Systems like ClickHouse, Apache Druid, etc., for complex analytical queries;
+- Systems like PostgreSQL, MySQL, TiDB, etc., for transaction processing;
+- Systems like ClickHouse, Apache Doris, etc., for complex analytical queries;
 - Systems like ElasticSearch, etc., for full-text search.
 
 
@@ -90,16 +90,6 @@ Most existing stream processing systems originated from the era of big data and 
 RisingWave fundamentally operates as a database. In databases, different (concurrent) queries share resources, eliminating the need for users to manage resource usage manually. Additionally, RisingWave uses a storage-compute separation architecture, making dynamic scaling straightforward.
 :::
 
-### Challenges with Dynamic Scaling
-
-Most existing stream processing systems have weak support for dynamic scaling. This limitation is primarily due to their tight coupling of storage and computation, making smooth dynamic scaling challenging.
-
-:::tip RisingWave's Approach
-
-RisingWave employs a decoupled compute-storage architecture, persisting internal state in remote object storage while decoupling computation from the state. This enables near-instantaneous dynamic scaling.
-:::
-
-
 ### Difficult to Manage Large States
 
 In complex stream processing like windowing and joins, many systems experience a significant performance drop or even crashes. This is because these systems store state on local computing instances, and large states can lead to performance and stability issues.
@@ -107,6 +97,15 @@ In complex stream processing like windowing and joins, many systems experience a
 :::tip RisingWave's Approach
 
 RisingWave's decoupled compute-storage architecture ensures that the computing state is always remotely persisted, not locally. This means that RisingWave users don't need to worry about the size of internal states. To optimize performance, RisingWave only caches states in local instances.
+:::
+
+### Challenges with Dynamic Scaling
+
+Most existing stream processing systems have weak support for dynamic scaling. This limitation is primarily due to their tight coupling of storage and computation, making smooth dynamic scaling challenging.
+
+:::tip RisingWave's Approach
+
+RisingWave employs a decoupled compute-storage architecture, persisting internal state in remote object storage while decoupling computation from the state. This enables near-instantaneous dynamic scaling.
 :::
 
 ### Slow to Recover from Failure
@@ -126,7 +125,6 @@ Most commonly used stream processing systems do not come with storage. In other 
 
 RisingWave is a streaming database and comes with built-in storage. Stream computation results are persisted as materialized views. This means that both the computation process and its results are within RisingWave. This makes it easy for users to verify program correctness. Moreover, users can overlay materialized views on top of one another, allowing them to break down complex stream computation programs into multiple materialized views, simplifying program development and result verification.
 :::
-
 
 ### Complex Data Stack
 
@@ -158,7 +156,7 @@ RisingWave uses row storage at its core, making it suitable for high-concurrency
 
 ## RisingWave's In-Production Use Cases
 
-Like other stream processing systems, the primary use cases of RisingWave include monitoring, alerting, real-time dashboard reporting, streaming ETL (Extract, Transform, Load), machine learning feature engineering, and more. It has already been applied in fields such as financial trading, manufacturing, new media, logistics, gaming, and more.
+Like other stream processing systems, the primary use cases of RisingWave include monitoring, alerting, real-time dashboard reporting, streaming ETL (Extract, Transform, Load), machine learning feature engineering, and more. It has already been applied in fields such as financial trading, manufacturing, new media, logistics, and more.
 
 
 

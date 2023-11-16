@@ -8,9 +8,11 @@ Similar to traditional databases, RisingWave supports data updates and deletions
 
 A few details worth noting:
 
-* Data on a table can be updated or deleted, even if the table was created using the `create table ... with ...`` statement. Of course, since RisingWave does not support transactions, users need to be extra careful with data accuracy;
+* Data on a table can be updated or deleted, even if the table was created using the `CREATE TABLE ... WITH ...` statement. Of course, since RisingWave does not support transactions, users need to be extra careful with data accuracy;
 
-* A source does not hold any data, so users cannot perform any update or deletion operations on a source;
+
+* A source does not hold any data, so users cannot perform any update or deletion operations on a source.
+
 
 * Data on a materialized view cannot be directly updated or deleted by users, which aligns with the design of traditional databases.
 
