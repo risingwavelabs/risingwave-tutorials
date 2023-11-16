@@ -221,3 +221,7 @@ The reason is that when the table is created, RisingWave starts consuming data f
 On the other hand, when the source is created, RisingWave does not immediately consume data from upstream. It's only when a materialized view is created on that source that RisingWave begins to consume data from the corresponding upstream source.
 
 Returning to the example, the moment t1 is created, RisingWave starts consuming data from upstream (which is the datagen corresponding to t1) and persists it in t1. When mv_t1 is created, RisingWave reads the data already saved in t1 and continues to consume data from datagen. However, when s1 is created, RisingWave does not immediately consume data. It's only when mv_s1 is created that RisingWave starts consuming upstream data. Hence, we see different results.
+
+## Continue reading
+
+[Connector - Source](/docs/advanced/connector.md#source): Learn about the specific connection methods and configurable items for different upstream systems.
