@@ -1,0 +1,11 @@
+---
+sidebar_position: 1
+---
+
+# Index
+
+In a database, users can create indexes on tables to accelerate queries. Indexing in RisingWave is similar to traditional databases and is designed to speed up random queries.
+
+Users can build indexes on tables and materialized views.
+
+Currently, RisingWave does not support cross-table indexes. This means an index can only be created on a single table or materialized view.
