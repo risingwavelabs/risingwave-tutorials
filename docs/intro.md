@@ -8,7 +8,7 @@ This article aims to help everyone understand what RisingWave is within **10 min
 
 :::note Note 1
 
-This tutorial may not guarantee synchronization with the official documentation (based on the RisingWave version 1.3.0 released in October 2023 when this tutorial was written).  The purpose of this tutorial is to help learn RisingWave streaming database swiftly. For detailed information, readers are advised to refer to the [official documentation](https://docs.risingwave.com/).
+This tutorial may not guarantee synchronization with the official documentation (based on the RisingWave version 1.3.0 released in October 2023 when this tutorial was written).  The purpose of this tutorial is to help learn RisingWave streaming database swiftly. For detailed information, readers are advised to refer to the [documentation](https://docs.risingwave.com/).
 
 :::
 
@@ -76,4 +76,4 @@ RisingWave isn’t a panacea for all data engineering hurdles. It has its own se
 
 ## In-production use cases
 
-Like other stream processing systems, the primary use cases of RisingWave include monitoring, alerting, real-time dashboard reporting, streaming ETL (Extract, Transform, Load), machine learning feature engineering, and more. It has already been adopted in fields such as financial trading, manufacturing, new media, logistics, gaming, and more. Check out [customer stories](https://www.risingwave.com/use-cases/).
+Like other stream processing systems, the primary use cases of RisingWave include monitoring, alerting, real-time dashboard reporting, streaming ETL (Extract, Transform, Load), machine learning feature engineering, and more. It has already been adopted in fields such as financial trading, manufacturing, new media, logistics, gaming, and more.
