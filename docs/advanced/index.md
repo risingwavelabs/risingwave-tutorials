@@ -62,7 +62,7 @@ SELECT * FROM customers JOIN orders ON c_custkey = o_custkey
 WHERE c_phone = '123456789';
 ```
 
-## How to decide which columns to include?
+## How to Decide Which Columns to Include?
 
 By default, RisingWave creates an index that includes all columns of a table or a materialized view if you omit the `INCLUDE` clause. This differs from the standard PostgreSQL. Why? RisingWave's design as a cloud-native streaming database includes several key differences from PostgreSQL, including the use of an object store for more cost-effective storage and the desire to make index creation as simple as possible for users who are not experienced with database systems. By including all columns, RisingWave ensures that an index will cover all of the columns touched by a query and eliminates the need for a primary table lookup, which can be slower in a cloud environment due to network communication. However, RisingWave still provides the option to include only specific columns using the `INCLUDE` clause for users who wish to do so.
 
@@ -79,7 +79,7 @@ SELECT c_name, c_address FROM customers WHERE c_phone = '123456789';
 ```
 
 
-## How to decide the index distribution key?
+## How to Decide the Index Distribution Key?
 
 RisingWave will use the first index column as the `distributed_column` by default if you omit the `DISTRIBUTED BY` clause. RisingWave distributes the data across multiple nodes and uses the `distributed_column` to determine how to distribute the data based on the index. If your queries intend to use indexes but only provide the prefix of the `index_column`, it could be a problem for RisingWave to determine which node to access the index data from. To address this issue, you can specify the `distributed_column` yourself, ensuring that these columns are the prefixes of the `index_column`.
 
