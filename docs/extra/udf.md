@@ -211,4 +211,4 @@ As we can see, currently RisingWave runs UDFs in separate Python or Java process
 
 The RPC of UDF works in batch mode, typically transferring data in blocks of 1024 rows. In practice, data transfer here usually does not become a performance bottleneck.
 
-The UDF server is stateless, allowing it to be safely horizontally scaled for improved performance and availability. When RisingWave fails to connect to the UDF server, it will retry several times within a few seconds. If it still fails, it will throw an expression evaluation error, causing an error in batch processing or setting the return value of the corresponding function to NULL in stream processing.
+The UDF server is stateless, allowing it to be safely horizontally scaled for improved performance and availability. When RisingWave fails to connect to the UDF server, it will retry several times within a few seconds. If it still fails, it will throw an expression evaluation error. For batch queries, an error will be thrown. For streaming queries, the return value of the corresponding function will be set to NULL.
