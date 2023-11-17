@@ -8,7 +8,7 @@ In a database, users can create indexes on tables to accelerate queries. Indexin
 
 ## Syntax
 
-```
+```sql
 CREATE INDEX index_name ON object_name ( index_column [ ASC | DESC ], [, ...] )
 [ INCLUDE ( include_column [, ...] ) ]
 [ DISTRIBUTED BY ( distributed_column [, ...] ) ];
@@ -16,7 +16,7 @@ CREATE INDEX index_name ON object_name ( index_column [ ASC | DESC ], [, ...] )
 ## Sample Code
 Let's assume we have two tables, `customers` and `orders`.
 
-```
+```sql
 CREATE TABLE customers (
     c_custkey INTEGER,
     c_name VARCHAR,
@@ -45,7 +45,7 @@ CREATE TABLE orders (
 
 If we want to speed up the query of fetching a customer record by the phone number, we can build an index on the `c_phone` column in the `customers` table.
 
-```
+```sql
 CREATE INDEX idx_c_phone on customers(c_phone);
 
 SELECT * FROM customers where c_phone = '123456789';
@@ -55,7 +55,7 @@ SELECT * FROM customers where c_phone in ('123456789', '987654321');
 
 If we want to speed up the query of fetching all the orders of a customer by the customer key, we can build an index on the `o_custkey` column in the `orders` table.
 
-```
+```sql
 CREATE INDEX idx_o_custkey ON orders(o_custkey);
 
 SELECT * FROM customers JOIN orders ON c_custkey = o_custkey 
