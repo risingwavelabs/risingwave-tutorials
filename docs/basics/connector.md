@@ -1,9 +1,10 @@
 ---
-sidebar_position: 8
+sidebar_position: 6
 ---
 
 # Connector
 
+When ingesting data into RisingWave or delivering data to a downstream system, you need to use connectors. For an overview of data ingestion and data delivery, please refer to [Data Ingestion](/docs/basics/ingestion.md) and [Data Delivery](/docs/basics/sink.md).
 
 ## Source
 
@@ -15,7 +16,7 @@ Common upstream data sources for RisingWave include:
 
 ### Message queues
 
-RisingWave supports importing data from message queues like Apache Kafka, Apache Pulsar, Redpanda, AWS Kinesis, etc., in various formats including Avro, Protobuf, JSON, CSV, Bytes, etc. For a comprehensive list, please refer to the [official documentation](https://docs.risingwave.com/docs/current/sql-create-source/#supported-sources). Example:
+RisingWave supports ingesting data from message queues like Apache Kafka, Apache Pulsar, Redpanda, AWS Kinesis, etc., in various formats including Avro, Protobuf, JSON, CSV, Bytes, etc. For a comprehensive list, please refer to the [documentation](https://docs.risingwave.com/docs/current/sql-create-source/#supported-sources). Example:
 
 ```sql
 CREATE SOURCE IF NOT EXISTS source_abc (
@@ -30,7 +31,7 @@ WITH (
 ) FORMAT PLAIN ENCODE JSON;
 ```
 
-The configuration of message queues and the starting consumption position are specified through configuration options in the `WITH` clause, with different connectors having distinct mandatory and optional configuration settings.
+The configuration of message queues and the starting consumption position are specified through parameters in the `WITH` clause. Different connectors have different set of parameters.
 
 The `FORMAT` parameter represents the organization format of the data and includes the following options:
 
@@ -65,12 +66,12 @@ When the `schema.registry` is specified, users no longer need to define columns 
 
 ### Change Data Capture (CDC)
 
-RisingWave supports importing Change Data Capture (CDC) from upstream databases through two main methods:
+RisingWave supports ingesting Change Data Capture (CDC) from upstream databases through two main methods:
 
-1. RisingWave consumes CDC data from message queues for data import. RisingWave supports mainstream CDC formats such as `DEBEZIUM`, `MAXWELL`, `CANAL`, etc., transmitted via message queues like Apache Kafka, Apache Pulsar, into RisingWave. Both OLTP databases (TiDB, MySQL, PostgreSQL, Oracle, etc.) and NoSQL databases (MongoDB, etc.) can be CDC imported into RisingWave using this approach.
-2. RisingWave directly connects to upstream databases for data import. Currently, RisingWave supports direct CDC imports from MySQL and PostgreSQL.
+1. RisingWave consumes CDC data from message queues. RisingWave supports mainstream CDC formats such as `DEBEZIUM`, `MAXWELL`, `CANAL`, etc., transmitted via message queues like Apache Kafka, Apache Pulsar, into RisingWave. Both OLTP databases (TiDB, MySQL, PostgreSQL, Oracle, etc.) and NoSQL databases (MongoDB, etc.) can transfer data to RisingWave using this approach.
+2. RisingWave directly connects to upstream databases for data ingestion. Currently, RisingWave supports direct CDC data ingestion from MySQL and PostgreSQL.
 
-Example of method 1 (CDC import via message queues):
+Example of method 1 (CDC ingestion via message queues):
 
 ```sql
 CREATE TABLE IF NOT EXISTS mq_cdc
@@ -84,7 +85,7 @@ WITH (
 );
 ```
 
-Example of method 2 (Direct MySQL CDC import):
+Example of method 2 (Direct MySQL CDC ingestion):
 
 ```sql
 CREATE TABLE orders (
@@ -102,13 +103,13 @@ CREATE TABLE orders (
 );
 ```
 
-Method 1 is suitable for users who have already established standard CDC collection via message queues, while Method 2 is suitable for users who haven't implemented CDC via message queues or prefer a simplified architecture. Regardless of the chosen method for importing CDC data, RisingWave ensures the correct import of full incremental data from the source table. This allows the establishment of materialized views for stream processing within RisingWave.
+Method 1 is suitable for users who have already established standard CDC pipelines via message queues, while Method 2 is suitable for users who haven't implemented CDC via message queues or prefer a simplified architecture. Regardless of the chosen method for loading CDC data, RisingWave ensures the correct import of full and incremental data from the source table.
 
-It is worth noting that RisingWave is actively expanding the functionality and performance of direct CDC connections, with plans to support more databases and advanced features such as full data backfill resumption, multi-table transactions, and more in the future.
+It is worth noting that RisingWave is actively expanding the functionality and performance of direct CDC connectors. We plan to support more databases and advanced features such as full data backfill resumption, multi-table transactions, and more in the future.
 
 ### **Storage system**
 
-RisingWave supports importing data from upstream storage systems, currently compatible with storage systems that adhere to the S3 protocol. For example,
+RisingWave supports ingesting data from upstream storage systems, notably S3 and S3-compatible systems. For example,
 
 ```sql
 CREATE TABLE s(
@@ -144,7 +145,7 @@ Common downstream systems supported by RisingWave include:
 - **Data lakes**, such as Apache Iceberg, Delta Lake, etc.
 - **Other systems**, such as Elasticsearch, Cassandra, Redis, etc.
 
-For the complete list, please refer to the [official documentation](https://docs.risingwave.com/docs/current/data-delivery/).
+For the complete list, please refer to the [documentation](https://docs.risingwave.com/docs/current/data-delivery/).
 
 Users can export data from RisingWave to downstream systems using the `CREATE SINK` command. Similar to SOURCE, users can specify the data format (`FORMAT`) and encoding (`ENCODE`) for the SINK.
 
@@ -163,7 +164,7 @@ Different downstream systems have varying support for `FORMAT` and `ENCODE`. For
 
 RisingWave supports `CREATE SINK FROM MV/SOURCE/TABLE` to directly export materialized views and table data. It also supports `CREATE SINK AS <query>` to select and transform data before the export.
 
-### Create a sink directly from an existing materialized view or table (CREATE SINK FROM)
+### Sink data from an existing materialized view or table (CREATE SINK FROM)
 
 ```sql
 CREATE SINK sink1 FROM mv_or_table 
@@ -175,7 +176,7 @@ WITH (
 FORMAT PLAIN ENCODE JSON;
 ```
 
-### Create a sink by defining a new query (CREATE SINK AS)
+### Sink data from a query (CREATE SINK AS)
 
 ```sql
 CREATE SINK sink2 AS 
@@ -191,4 +192,4 @@ WITH (
 FORMAT PLAIN ENCODE JSON;
 ```
 
-It is worth noting that different downstream systems have various configurable options with `CREATE SINK`. For detailed information, please refer to the [official documentation](https://docs.risingwave.com/docs/current/data-delivery/).
+It is worth noting that different downstream systems have various configurable options with `CREATE SINK`. For detailed information, please refer to the [documentation](https://docs.risingwave.com/docs/current/data-delivery/).
