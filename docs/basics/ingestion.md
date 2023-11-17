@@ -224,4 +224,4 @@ Returning to the example, the moment t1 is created, RisingWave starts consuming 
 
 ## Continue reading
 
-[Connector - Source](/docs/advanced/connector.md#source): Learn about the specific connection methods and configurable items for different upstream systems.
+[Connector - Source](/docs/basics/connector.md#source): Learn more about the specific connection methods and configurable items for different upstream systems.
