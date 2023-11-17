@@ -2,27 +2,25 @@
 sidebar_position: 1
 ---
 
-# RisingWave in 5 Minutes
+# RisingWave in 10 Minutes
 
 This article aims to help everyone understand what RisingWave is within **10 minutes**.
 
-:::danger Note 1
+:::note Note 1
 
-This tutorial may not guarantee synchronization with the official documentation (based on the RisingWave version 1.3.0 released in October 2023 when this tutorial was written).  The purpose of this tutorial is to help learn RisingWave streaming database swiftly. For detailed information, readers are advised to refer to the **[official documentation](https://docs.risingwave.com/)**.
+This tutorial may not guarantee synchronization with the official documentation (based on the RisingWave version 1.3.0 released in October 2023 when this tutorial was written).  The purpose of this tutorial is to help learn RisingWave streaming database swiftly. For detailed information, readers are advised to refer to the [official documentation](https://docs.risingwave.com/).
 
 :::
 
-:::danger Note 2
+:::note Note 2
 This tutorial is still under continuous development. The latest update was on:
-**November 1, 2023**.
+**November 17, 2023**.
 We welcome suggestions from everyone who is interested in RisingWave, stream processing, databases, or data engineering!
 :::
 
 ## What is RisingWave?
 
-RisingWave is a distributed SQL streaming database. In simple terms, it allows users to handle stream data using a SQL database approach, performing continuous real-time stream processing, along with data storage and ad-hoc query access functionalities.
-
-RisingWave is an open-source (Apache 2.0 license) system. It is compatible with the PostgreSQL wire protocol, meaning that users can use RisingWave just like they use PostgreSQL.
+RisingWave is a distributed SQL streaming database that enables simple, efficient, and reliable processing of streaming data. It is open-sourced under Apache 2.0 license. It allows developers to perform stream processing in the same way as they operate a database. Developers can express intricate processing logic through materialized views, and query materailized views to get always up-to-date and consistent results.
 
 <img
   src={require('./img/new_archi_grey.png').default}
@@ -40,125 +38,42 @@ RisingWave is an open-source (Apache 2.0 license) system. It is compatible with 
 - Transaction processing;
 - Ad-hoc analytical queries that involve frequent full table scans.
 
-In other words, **users can use RisingWave to replace**:
+## Why RisingWave for stream processing?
 
-- Systems like Apache Flink, Apache Spark Streaming, KsqlDB, etc., for stream processing;
-- System combinations like Apache Flink + Cassandra / Redis / DynamoDB.
+RisingWave specializes in providing **incrementally updated, consistent materialized views** — a persistent data structure that represents the results of stream processing. RisingWave significantly reduces the complexity of building stream processing applications by allowing developers to express intricate stream processing logic through cascaded materialized views. Furthermore, it allows users to persist data directly within the system, eliminating the need to deliver results to external databases for storage and query serving.
 
+Compared to existing stream processing systems like [Apache Flink](https://flink.apache.org/), [Apache Spark Streaming](https://spark.apache.org/docs/latest/streaming-programming-guide.html), and [KsqlDB](https://ksqldb.io/), RisingWave stands out in two primary dimensions: **Ease-of-use** and **cost efficiency**, thanks to its **[PostgreSQL](https://www.postgresql.org/)-style interaction experience** and  **[Snowflake](https://snowflake.com/)-like architectural design** (i.e., decoupled storage and compute).
 
-**And should not use RisingWave to replace**:
+### Ease-of-use
 
-- Systems like PostgreSQL, MySQL, TiDB, etc., for transaction processing;
-- Systems like ClickHouse, Apache Doris, etc., for complex analytical queries;
-- Systems like ElasticSearch, etc., for full-text search.
+- **Simple to learn**
+  - RisingWave speaks PostgreSQL-style SQL, enabling users to dive into stream processing in much the same way as operating a PostgreSQL database.
 
+- **Simple to develop**
+  - RisingWave operates as a relational database, allowing users to decompose stream processing logic into smaller, manageable, stacked materialized views, rather than dealing with extensive computational programs.
+- **Simple to integrate**
+  - With integrations to a diverse range of cloud systems and the PostgreSQL ecosystem, RisingWave boasts a rich and expansive ecosystem, making it straightforward to incorporate into existing infrastructures.
 
-## Why Use RisingWave for Stream Processing?
+### Cost efficiency
 
+- **Highly efficient in complex queries**
+  - RisingWave persists internal states in remote storages (e.g., S3), and users can confidently and efficiently perform complex streaming queries (e.g., joining dozens of data streams) in a production environment, without worrying about state size.
+- **Transparent dynamic scaling**
+  - RisingWave's state management mechanism enables near-instantaneous dynamic scaling without any service interruptions.
+- **Instant failure recovery**
+  - RisingWave's state management mechanism also allows it to recover from failure in seconds, not minutes or hours.
 
-On the market, there are already some well-known open-source stream processing systems, such as Apache Flink and Apache Spark Streaming, and KsqlDB. So why do we need to use RisingWave?
+## RisingWave's limitations
 
-Compared to other stream processing systems, RisingWave mainly focuses on two aspects: **ease-of-use** and **cost-efficiency**. To put it simply:
+RisingWave isn’t a panacea for all data engineering hurdles. It has its own set of limitations:
 
-- RisingWave provides users with a **PostgreSQL-like experience** for stream processing, significantly lowering the barriers to using stream processing technology;
-- RisingWave adopted implemented a **Snowflake-style storage-compute separation architecture**, thereby achieving significant reductions in both computing and storage costs.
+- **No programmable interfaces**
+  - RisingWave does not provide low-level APIs in languages like Java and Scala, and does not allow users to manage internal states manually (unless you want to hack!). For coding in Java, Scala, and other languages, please consider using RisingWave's User-Defined Functions (UDF).
+- **No support for transaction processing**
+  - RisingWave isn’t cut out for transactional workloads, thus it’s not a viable substitute for operational databases dedicated to transaction processing. However, it supports read-only transactions, ensuring data freshness and consistency. It also comprehends the transactional semantics of upstream database Change Data Capture (CDC).
+- **Not tailored for ad-hoc analytical queries**
+  - RisingWave's row store design is tailored for optimal stream processing performance rather than interactive analytical workloads. Hence, it's not a suitable replacement for OLAP databases. Yet, a reliable integration with many OLAP databases exists, and a collaborative use of RisingWave and OLAP databases is a common practice among many users.
 
-From users' perspective, **RisingWave addresses several common pain points of existing stream processing systems:**
+## In-production use cases
 
-### Steep Learning Curve
-
-Existing stream processing systems generally have a steep learning curve. It's not just challenging to get started; even after the initial learning phase, mastering core concepts and advanced features is also difficult. Many users, after diving into stream processing systems, become overwhelmed by various low-level concepts, making it hard to grasp advanced techniques like windowing, watermarking, joins, and more, ultimately hindering their ability to effectively utilize stream processing.
-
-:::tip RisingWave's Approach
-RisingWave offers a SQL interface that is compatible with PostgreSQL and enhances overall expressiveness through user-defined functions (UDFs) in languages like Python and Java. What's even more important is that RisingWave provides high-level encapsulation of underlying details, allowing users to work with it without needing to be aware of low-level implementations.
-:::
-
-### Inefficiency in Multi-Stream Joins
-
-Many stream processing systems provide SQL interfaces, allowing users to perform multiple stream joins using SQL join operators. However, due to internal state management and implementation issues, these stream processing systems exhibit poor stability and performance when it comes to join operations. When attempting to join 5-10 streams or more, the efficiency is compromised, or the system may crash, let alone handling a larger number of streams for joins.
-
-:::tip RisingWave's Approach
-RisingWave has made significant optimizations, particularly in state management, for multiple stream join scenarios. The system maintains efficiency and stability when performing multiple stream joins, even handling 10-20 streams (or more) effectively in production environments.
-:::
-
-### Low Resource Utilization Rate
-
-Most existing stream processing systems originated from the era of big data and employed a MapReduce-like architecture that aggressively utilizes resources for stream processing. In these systems, each streaming job operates independently, making resource allocation a challenge. Overallocation of resources is common, leading to resource wastage. Moreover, stream processing's resource usage varies with load changes, and these systems lack efficient dynamic scaling capabilities. As a result, in real production environments, users often allocate resources based on peak loads, further reducing resource utilization rate.
-
-:::tip RisingWave's Approach
-
-RisingWave fundamentally operates as a database. In databases, different (concurrent) queries share resources, eliminating the need for users to manage resource usage manually. Additionally, RisingWave uses a storage-compute separation architecture, making dynamic scaling straightforward.
-:::
-
-### Difficult to Manage Large States
-
-In complex stream processing like windowing and joins, many systems experience a significant performance drop or even crashes. This is because these systems store state on local computing instances, and large states can lead to performance and stability issues.
-
-:::tip RisingWave's Approach
-
-RisingWave's decoupled compute-storage architecture ensures that the computing state is always remotely persisted, not locally. This means that RisingWave users don't need to worry about the size of internal states. To optimize performance, RisingWave only caches states in local instances.
-:::
-
-### Challenges with Dynamic Scaling
-
-Most existing stream processing systems have weak support for dynamic scaling. This limitation is primarily due to their tight coupling of storage and computation, making smooth dynamic scaling challenging.
-
-:::tip RisingWave's Approach
-
-RisingWave employs a decoupled compute-storage architecture, persisting internal state in remote object storage while decoupling computation from the state. This enables near-instantaneous dynamic scaling.
-:::
-
-### Slow to Recover from Failure
-
-Stream processing systems regularly save checkpoints. In case of failures, the system can resume computation from the most recent checkpoint. The time required for recovery, known as system downtime, is directly related to checkpoint intervals. Many existing stream processing systems have checkpoint intervals of one minute or more. In real production environments, some systems use intervals of 3 minutes, 5 minutes, or even 10 minutes or more. This is because these systems' checkpoint intervals impact performance. Too frequent checkpoints reduce performance significantly, while infrequent checkpoints result in extended downtime during system failures. Such extended downtime is unacceptable for latency-sensitive applications like financial transactions, monitoring, and alerts.
-
-:::tip RisingWave's Approach
-
-RisingWave's internal state management decouples checkpoint frequency from performance. Users can set very short checkpoint intervals to minimize service downtime. By default, RisingWave has a 10-second checkpoint interval.
-:::
-
-### Challenges in Result Verification
-
-Most commonly used stream processing systems do not come with storage. In other words, stream computation occurs within the stream processing system, and computation results need to be exported to external systems. This means that when users perform stream computations, data input is in external systems, data output is also in external systems, and only the computation takes place within the stream processing system. As a result, result verification is inconvenient. Additionally, existing stream processing systems run each task (job) independently, making it impossible to create tasks that consume the results of other tasks. This leads to complex task logic, making debugging and verification challenging.
-
-:::tip RisingWave's Approach
-
-RisingWave is a streaming database and comes with built-in storage. Stream computation results are persisted as materialized views. This means that both the computation process and its results are within RisingWave. This makes it easy for users to verify program correctness. Moreover, users can overlay materialized views on top of one another, allowing them to break down complex stream computation programs into multiple materialized views, simplifying program development and result verification.
-:::
-
-### Complex Data Stack
-
-Due to the lack of storage in existing stream processing systems, users need to export results to external systems and set up query serving services (supporting high-concurrency queries) in external systems like Cassandra, Redis, PostgreSQL, etc. This means that users have to maintain two sets of systems. Even more challenging is that, to ensure result correctness, users must address data consistency issues between different systems, causing unnecessary complications.
-
-:::tip RisingWave's Approach
-
-RisingWave is a streaming database that not only stores data (including input data and computation results) but also supports high-concurrency user access to results. Users don't need to maintain two separate systems, nor do they need to worry about data consistency issues. Users can always access consistent and up-to-date results within RisingWave.
-:::
-
-
-### Complex System Maintenance
-
-Existing stream processing systems expose low-level details to users, requiring them to configure resources, adjust parallelism, and fine-tune internal state parameters. While exposing these details can lead to better performance for advanced users, it presents unnecessary learning curves and the potential for inefficient system operation and crashes for most ordinary users.
-:::tip RisingWave's Approach
-
-RisingWave shields users from unnecessary low-level details. Users only need to focus on SQL code-level issues.
-:::
-
-
-## RisingWave's Limitations
-
-Compared to stream processing systems like Apache Flink and Apache Spark Streaming, RisingWave **does not support programmable interfaces in languages like Java and Python**. Many experienced users of Apache Flink and Apache Spark Streaming choose to use Java or Python interfaces for programming. If existing code logic is overly complex and cannot be rewritten using SQL, RisingWave may not be suitable. However, RisingWave does support User-Defined Functions (UDFs) in languages such as Python and Java. Therefore, if your program can be represented using UDFs, you can still choose RisingWave.
-
-While RisingWave is compatible with the PostgreSQL wire protocol, it **does not support transaction processing**. Therefore, it cannot directly replace PostgreSQL in transactional applications. Many users combine OLTP databases like MySQL and PostgreSQL with RisingWave: they use OLTP databases for transaction processing and use RisingWave to consume Change Data Capture (CDC) from the databases, performing stream processing within RisingWave.
-
-RisingWave uses row storage at its core, making it suitable for high-concurrency point queries. However, RisingWave **is not well-suited for ad-hoc analytical queries**. To support workloads of massive amounts of ad-hoc analytical queries, users need to import data into a real-time analytical database for operations. Many users combine RisingWave with databases like ClickHouse and Apache Druid for real-time analytics: they use RisingWave for stream processing while using the real-time analytical database for analytical queries.
-
-
-## RisingWave's In-Production Use Cases
-
-Like other stream processing systems, the primary use cases of RisingWave include monitoring, alerting, real-time dashboard reporting, streaming ETL (Extract, Transform, Load), machine learning feature engineering, and more. It has already been applied in fields such as financial trading, manufacturing, new media, logistics, and more.
-
-
-
-
-
+Like other stream processing systems, the primary use cases of RisingWave include monitoring, alerting, real-time dashboard reporting, streaming ETL (Extract, Transform, Load), machine learning feature engineering, and more. It has already been adopted in fields such as financial trading, manufacturing, new media, logistics, gaming, and more. Check out [customer stories](https://www.risingwave.com/use-cases/).
