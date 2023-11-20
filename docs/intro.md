@@ -49,7 +49,7 @@ When developing applications using traditional stream processing engines like Ap
 The diagram below illustrates the situation when building applications using traditional stream processing engines. Developers need to manage multiple systems and handle the consistency relationships between them.
 
 <img
-  src={require('./img/without_risingwave.png').default}
+  src={require('./img/without_risingwave.jpg').default}
   alt="RisingWave Architecture"
 />
 
@@ -58,7 +58,7 @@ When using RisingWave, users only need to focus on constructing materialized vie
 The diagram below illustrates the situation when developing applications using the RisingWave stream database. Developers only need to manage a single system and do not need to consider any relationships between different system components.
 
 <img
-  src={require('./img/with_risingwave.png').default}
+  src={require('./img/with_risingwave.jpg').default}
   alt="RisingWave Architecture"
 />
 
