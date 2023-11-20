@@ -7,30 +7,29 @@ sidebar_position: 2
 The core functionality of RisingWave is stream processing, and the way stream processing is presented in streaming databases is through materialized views.
 This section explains the purpose and usage of RisingWave materialized views.
 
-## Why is RisingWave's Materialized View Unique?
+## Characteristics of RisingWave's materialized views
 
-Materialized views are not unique to streaming databases. In fact, traditional databases such as PostgreSQL, data warehouses like Redshift and Snowflake, and real-time OLAP databases like ClickHouse and Apache Druid, all have materialized view capabilities. However, RisingWave's materialized views have several important features compared to those in other databases:
+Materialized views are not unique to streaming databases. In fact, traditional databases such as PostgreSQL, data warehouses like Redshift and Snowflake, and OLAP databases like ClickHouse and Apache Pinot, all have materialized views. However, RisingWave's materialized views have several important features compared to those in other databases:
 
+**Real-time**: Many databases update materialized views asynchronously or require manual updates by users. However, materialized views in RisingWave are updated synchronously, ensuring users always query the freshest results. Even for complex queries involving joins and windowing, RisingWave efficiently handles synchronous processing to maintain the freshness of materialized views.
 
-* **Real-time**: Many databases update materialized views asynchronously or require users to update them manually. But on RisingWave, materialized views are updated synchronously, so users can always query the freshest results. Even for complex queries with join, windowing, etc., RisingWave can efficiently handle them synchronously, ensuring the freshness of materialized views;
+**Consistency**: Some databases only provide eventually consistent materialized views, meaning the results on materialized views are approximate or contain errors. Especially when users create multiple materialized views with different refresh strategies, it becomes challenging to see consistent results across materialized views. Materialized views in RisingWave are consistent, ensuring that users always see correct results even when accessing multiple materialized views.
 
-* **Consistency**: Some databases only provide eventually consistent materialized views, meaning the results on materialized views seen by users are approximate or erroneous. Especially when users create multiple materialized views, due to different refresh strategies for each materialized view, it's hard to see consistent results across materialized views. However, materialized views on RisingWave are consistent; even when accessing multiple materialized views, users will always see correct results, without inconsistencies;
+**High availability**: RisingWave persists materialized views and implements frequent checkpoints for fast failure recovery. When a physical node running RisingWave experiences a failure, RisingWave achieves recovery within seconds and updates the calculation results to the latest state in seconds.
 
-* **High Availability**: RisingWave persists materialized views and sets high-frequency checkpoints to ensure rapid fault recovery. When the physical nodes hosting RisingWave crash, RisingWave can achieve second-level recovery and update computation results to the latest state within seconds;
+**High concurrency**: RisingWave supports high-concurrency ad-hoc queries. Since RisingWave persistently stores data in remote object storage in real-time, users can dynamically configure the number of query nodes based on the workload, effectively supporting business requirements.
 
-* **Stream Processing Semantics**: In the stream processing domain, users can use higher-order syntax, like time windows, watermarks, etc., to process data streams. Traditional databases do not have these semantics, so users often rely on external systems to handle these semantics. RisingWave is a stream processing system, equipped with various complex stream processing semantics, allowing users to operate with SQL statements.
+**Stream processing semantics**: In stream processing, users can apply high-level syntax such as time windows and watermarks to process data streams. Traditional databases do not have these semantics, so users often rely on external systems to handle these semantics. RisingWave is a stream processing system that comes with various complex stream processing semantics, allowing users to operate on data streams using SQL statements.
 
-We also find that in some cases, users may use RisingWave's materialized views even if they don't need these features. The main reason for this is that materialized views involve continuous stream computation and consume a significant amount of computational resources. To avoid interference with other computations, some users choose to offload the materialized view functionality to independent systems like RisingWave, thus achieving resource isolation.
+**Resource isolation**: Materialized views involve continuous stream computation and consume a significant amount of computing resources. To avoid interference between materialized view computations and other computations, some users transfer the materialized view functionality from OLTP or OLAP databases to RisingWave, achieving resource isolation.
 
-## Stream Processing without Materialized Views
+## Stream Processing without materialized views
 
 In RisingWave, although materialized views are an important presentation of stream processing, it does not mean that users can only create materialized views to perform stream processing. In fact, for simple ETL computations, i.e., using RisingWave merely as a stream processing pipeline to process data generated by upstream systems and send it to downstream systems, there is no need to use materialized views. Users can simply use the [`create sink` statement](https://docs.risingwave.com/docs/current/sql-create-sink/) to directly perform stream processing and export the results.
 
-
 ## Sample Code
 
-
-Most of you are likely familiar with how to create materialized views in PostgreSQL. Here, we demonstrate how to create stacked materialized views in RisingWave, that is, overlaying materialized views on top of materialized views.
+Most of you are likely familiar with how to create materialized views in PostgreSQL. Here, we demonstrate how to create cascading materialized views in RisingWave, that is, materialized views on top of other materialized views.
 
 We want to create tables `t1` and `t2`, as well as sources `s1` and `s2`. After that, we create a materialized view `mv1` on top of `t1` and `t2`, then materialized view `mv2` on top of `mv1` and `mv2`. Finally, we create a materialized view `mv` on `mv1` and `mv2`.
 
@@ -112,15 +111,13 @@ Finally we create `mv`:
 create materialized view mv as select w2, w4 from mv1, mv2 where v2 = v4;
 ```
 
-Let's verify whether the stacked materialized views have been updated in a timely manner. We will repeatedly perform the following query:
-
+Let's verify whether the cascading materialized views have been updated in a timely manner. We will repeatedly perform the following query:
 
 ```sql
 select count(*) from mv;
 ```
 
 We should see the results continuously changing. Below are the sample results:
-
 
 ```sql
  count
