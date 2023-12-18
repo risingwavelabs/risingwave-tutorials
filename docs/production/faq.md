@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Common Issues in Production Environment
 
-##Out-of-Memory (OOM)
+## Out-of-Memory (OOM)
 
 In a production environment, the most likely issue encountered in RisingWave is memory overflow or Out-of-Memory (OOM). Many users might wonder: RisingWave is written in Rust to ensure memory safety, and it uses a decoupled compute-storage architecture to store internal states remotely, so why would memory overflow still occur?
 

@@ -68,7 +68,7 @@ def series(n):
 
 # Register functions and start the UDF server
 if __name__ == '__main__':
-    server = UdfServer(location="0.0.0.0:8815") # 可以调整服务器的监听地址
+    server = UdfServer(location="0.0.0.0:8815") # Adjust the listening address of the server
     server.add_function(gcd)
     server.add_function(series)
     server.serve()
