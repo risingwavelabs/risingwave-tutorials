@@ -170,20 +170,20 @@ public class App {
 
 We can directly compile and run the project using Maven:
 
-```java
+```bash
 _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" mvn exec:java -Dexec.mainClass="com.example.App"
 ```
 
 Or, build the project first and then run the jar file:
 
-```java
+```bash
 mvn package
 java -jar target/risingwave-udf-example.jar
 ```
 
 After that, we can declare and use them in RisingWave:
 
-```java
+```sql
 CREATE FUNCTION gcd(int, int) RETURNS int
 AS gcd USING LINK '<http://localhost:8815>';
 
