@@ -35,14 +35,14 @@ Let's say we have a stream of taxi trip data:
 
 You can use a tumbling time window to obtain grouping by each 2 minutes:
 
-```SQL
+```sql
 SELECT trip_id,  taxi_id, completed_at, window_start, window_end
 FROM TUMBLE (taxi_trips, completed_at, INTERVAL '2 MINUTES');
 ```
 
 Here is the result:
 
-```SQL
+```sql
 trip_id | taxi_id   | completed_at          | window_start          | window_end 
 --------+-----------+-----------------------+-----------------------+---------------------
 1       | 1001      | 2022-07-01 22:00:00   | 2022-07-01 22:00:00   | 2022-07-01 22:02:00
@@ -55,7 +55,7 @@ trip_id | taxi_id   | completed_at          | window_start          | window_end
 
 You can also use a hopping time window to calculate corresponding statistics for windows that start every minute and have a length of 2 minutes:
 
-```SQL
+```sql
 SELECT trip_id, taxi_id, completed_at, window_start, window_end
 FROM HOP (taxi_trips, completed_at, INTERVAL '1 MINUTE', INTERVAL '2 MINUTES')
 ORDER BY window_start;
@@ -63,7 +63,7 @@ ORDER BY window_start;
 
 Here is the result:
 
-```SQL
+```sql
 trip_id | taxi_id  | completed_at          | window_start          | window_end 
 ---------+---------+------------------------+-----------------------+--------------------
  1       | 1001     | 2022-07-01 22:00:00   | 2022-07-01 21:59:00   | 2022-07-01 22:01:00
