@@ -16,7 +16,7 @@ In stream processing, because the input stream is unbounded, stream processing e
 
 For example, the following SQL query creates a table with a 5-second timeout watermark and creates a streaming query on the table to compute a count per minute. The `EMIT ON WINDOW CLOSE` at the end of the statement specifies that the computation is triggered when the materialized view's window closes.
 
-```SQL
+```sql
 CREATE TABLE t (
     v1 int,
     v2 int,
@@ -44,7 +44,7 @@ So, in what situations should you choose to trigger on window close? There are t
 
 Example of time window aggregation:
 
-```SQL
+```sql
 CREATE MATERIALIZED VIEW mv AS
 SELECT
     window_start, MAX(v1), SUM(v2)
@@ -54,7 +54,7 @@ EMIT ON WINDOW CLOSE;
 ```
 Example of OVER window function:
 
-```SQL
+```sql
 CREATE MATERIALIZED VIEW mv2 AS
 SELECT
     time, v1, v2,
