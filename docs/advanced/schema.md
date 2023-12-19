@@ -16,7 +16,7 @@ To avoid data loss with the newly added column, users need to first add the colu
 
 Existing materialized views in RisingWave, such as `mv_rw`, and other stream tasks, will not automatically update to reference this newly added column. Users must create new materialized views or stream tasks to reference it. In the future, RisingWave plans to support online query changes for materialized views, giving users the opportunity to avoid rebuilding these stream tasks.
 
-### Dropping a column
+### Dropping a Column
 
 Users can drop the column from `table_rw` and `table_pg` in any order.
 
