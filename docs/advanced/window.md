@@ -24,7 +24,6 @@ In RisingWave, the input and output of time window functions are both tables. Ti
 
 Let's say we have a stream of taxi trip data:
 
-```SQL
 | trip_id | taxi_id | completed_at        | distance | duration |
 | ------- | ------- | ------------------- | -------- | -------- |
 | 1       | 1001    | 2022-07-01 22:00:00 | 4        | 6        |
@@ -33,12 +32,17 @@ Let's say we have a stream of taxi trip data:
 | 4       | 1004    | 2022-07-01 22:03:00 | 7        | 15       |
 | 5       | 1005    | 2022-07-01 22:05:00 | 2        | 4        |
 | 6       | 1006    | 2022-07-01 22:05:30 | 8        | 17       |
-```
 
 You can use a tumbling time window to obtain grouping by each 2 minutes:
+
 ```SQL
 SELECT trip_id,  taxi_id, completed_at, window_start, window_end
 FROM TUMBLE (taxi_trips, completed_at, INTERVAL '2 MINUTES');
+```
+
+Here is the result:
+
+```SQL
 trip_id | taxi_id   | completed_at          | window_start          | window_end 
 --------+-----------+-----------------------+-----------------------+---------------------
 1       | 1001      | 2022-07-01 22:00:00   | 2022-07-01 22:00:00   | 2022-07-01 22:02:00
@@ -55,6 +59,11 @@ You can also use a hopping time window to calculate corresponding statistics for
 SELECT trip_id, taxi_id, completed_at, window_start, window_end
 FROM HOP (taxi_trips, completed_at, INTERVAL '1 MINUTE', INTERVAL '2 MINUTES')
 ORDER BY window_start;
+```
+
+Here is the result:
+
+```SQL
 trip_id | taxi_id  | completed_at          | window_start          | window_end 
 ---------+---------+------------------------+-----------------------+--------------------
  1       | 1001     | 2022-07-01 22:00:00   | 2022-07-01 21:59:00   | 2022-07-01 22:01:00
