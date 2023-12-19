@@ -10,13 +10,13 @@ RisingWave itself is a stream processing system and a database. Therefore, it no
 
 To better understand how RisingWave handles schema changes, let's assume a RisingWave instance with an upstream PostgreSQL database. RisingWave connects and synchronizes a table from the PostgreSQL database using the Change Data Capture (CDC) method. This table is named `table_pg` in PostgreSQL and `table_rw` in RisingWave. We then create a materialized view `mv_rw` on `table_rw`.
 
-### Adding a column:
+### Adding a Column
 
 To avoid data loss with the newly added column, users need to first add the column to `table_rw` and optionally set its default value for all historical data. Then, after adding the column to `table_pg`, new data can be imported.
 
 Existing materialized views in RisingWave, such as `mv_rw`, and other stream tasks, will not automatically update to reference this newly added column. Users must create new materialized views or stream tasks to reference it. In the future, RisingWave plans to support online query changes for materialized views, giving users the opportunity to avoid rebuilding these stream tasks.
 
-### Dropping a column:
+### Dropping a column
 
 Users can drop the column from `table_rw` and `table_pg` in any order.
 

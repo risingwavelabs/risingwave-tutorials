@@ -10,6 +10,7 @@ RisingWave is a distributed system with the following components:
 * Worker Node
 	* Compute Node
 	* Compact Node
+	
 The Meta Node stores metadata, such as database names, table names, column names, materialized view names, computation progress, and so on. It acts as the brain of the entire system; loss of metadata could lead to data loss or irrecoverability across the cluster. Currently, RisingWave utilizes etcd for meta node storage. However, in some scenarios, etcd's performance falls short, and there's consideration to replace etcd with other services.
 
 Worker Nodes can be further subdivided into Compute Nodes and Compact Nodes. Among them, Compute Nodes are responsible for stream processing and random querying. RisingWave employs an LSM (Log-Structured Merge) tree structure to manage the internal state of computations. The LSM tree continuously compacts and packages data, transitioning it from an unordered to an ordered state. The compaction process within the LSM tree consumes a significant amount of computational resources, hence RisingWave introduces separate Compact Nodes to offload the compaction process, minimizing its impact on stream processing.
