@@ -14,9 +14,9 @@ Common upstream data sources for RisingWave include:
 - **Change Data Capture (CDC) databases** like MySQL, PostgreSQL, MongoDB, etc.;
 - **Storage systems** like AWS S3.
 
-### Message queues
+### Message Queues
 
-RisingWave supports ingesting data from message queues like Apache Kafka, Apache Pulsar, Redpanda, AWS Kinesis, etc., in various formats including Avro, Protobuf, JSON, CSV, Bytes, etc. For a comprehensive list, please refer to the [documentation](https://docs.risingwave.com/docs/current/sql-create-source/#supported-sources). Example:
+RisingWave supports ingesting data from message queues like Apache Kafka, Apache Pulsar, Redpanda, AWS Kinesis, etc., in various formats including Avro, Protobuf, JSON, CSV, Bytes, etc. For a comprehensive list, please refer to the [documentation](https://docs.risingwave.com/docs/current/sql-create-source/#supported-sources). For example:
 
 ```sql
 CREATE SOURCE IF NOT EXISTS source_abc (
@@ -71,7 +71,7 @@ RisingWave supports ingesting Change Data Capture (CDC) from upstream databases 
 1. RisingWave consumes CDC data from message queues. RisingWave supports mainstream CDC formats such as `DEBEZIUM`, `MAXWELL`, `CANAL`, etc., transmitted via message queues like Apache Kafka, Apache Pulsar, into RisingWave. Both OLTP databases (TiDB, MySQL, PostgreSQL, Oracle, etc.) and NoSQL databases (MongoDB, etc.) can transfer data to RisingWave using this approach.
 2. RisingWave directly connects to upstream databases for data ingestion. Currently, RisingWave supports direct CDC data ingestion from MySQL and PostgreSQL.
 
-Example of method 1 (CDC ingestion via message queues):
+Here is the example of method 1, CDC ingestion via message queues:
 
 ```sql
 CREATE TABLE IF NOT EXISTS mq_cdc
@@ -85,7 +85,7 @@ WITH (
 );
 ```
 
-Example of method 2 (Direct MySQL CDC ingestion):
+Here is the example of method 2, direct MySQL CDC ingestion:
 
 ```sql
 CREATE TABLE orders (
@@ -107,7 +107,7 @@ Method 1 is suitable for users who have already established standard CDC pipelin
 
 It is worth noting that RisingWave is actively expanding the functionality and performance of direct CDC connectors. We plan to support more databases and advanced features such as full data backfill resumption, multi-table transactions, and more in the future.
 
-### **Storage system**
+### **Storage System**
 
 RisingWave supports ingesting data from upstream storage systems, notably S3 and S3-compatible systems. For example,
 
@@ -132,7 +132,7 @@ WITH (
 
 Currently, data with CSV and JSON encoding can be imported from a specified bucket in S3. In the future, RisingWave will extend its support to import data from a wider range of upstream storage systems.
 
-### **DML import**
+### **DML Import**
 
 In addition to streaming data from various upstream sources as mentioned above, RisingWave's tables also support data insertion using PostgreSQL's Data Manipulation Language (DML). Users can use `INSERT INTO ...` to insert data into RisingWave tables or explore bulk insertion using PostgreSQL-compatible bulk import tools. It is important to note that as RisingWave is a streaming database, streaming data import is the recommended method for data ingestion. DML data import serves as a supplementary method, primarily suitable for data corrections and scenarios involving infrequent bulk imports.
 
@@ -164,7 +164,9 @@ Different downstream systems have varying support for `FORMAT` and `ENCODE`. For
 
 RisingWave supports `CREATE SINK FROM MV/SOURCE/TABLE` to directly export materialized views and table data. It also supports `CREATE SINK AS <query>` to select and transform data before the export.
 
-### Sink data from an existing materialized view or table (CREATE SINK FROM)
+### `CREATE SINK FROM`
+
+You can use `CREATE SINK FROM` to sink data from an existing materialized view or table.
 
 ```sql
 CREATE SINK sink1 FROM mv_or_table 
@@ -176,7 +178,9 @@ WITH (
 FORMAT PLAIN ENCODE JSON;
 ```
 
-### Sink data from a query (CREATE SINK AS)
+### `CREATE SINK AS`
+
+You can use `CREATE SINK AS` to sink data from a query.
 
 ```sql
 CREATE SINK sink2 AS 

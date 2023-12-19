@@ -7,11 +7,11 @@ sidebar_position: 5
 Some users wish to use RisingWave for stream processing and then deliver the computed results to downstream systems. This is a common stream ETL scenario.
 In RisingWave, users can directly use the [`CREATE SINK` statement](https://docs.risingwave.com/docs/current/sql-create-sink/) to achieve data delivery.
 
-## Code example
+## Sample Code
 
 Let's take a quick look at how RisingWave delivers data. For simplicity, we will use Apache Kafka as the downstream destination.
 
-### Preparing data
+### Preparing Data
 
 First, we create a `table` and import data using the `datagen` tool:
 
@@ -50,7 +50,7 @@ After creating `t1` for some time, we can use the `SELECT` statement to query `t
 SELECT COUNT(*) FROM t1;
 ```
 
-### Delivering data
+### Delivering Data
 
 First, we need to start Apache Kafka on localhost, listening on port 9092 (local deployment of Apache Kafka can be achieved using Docker Compose, specific steps are omitted here). Next, we can deliver the data from the table directly to the downstream by creating a `sink`:
 
@@ -100,6 +100,6 @@ Output (data will continue to be sent to Kafka until datagen stops):
 
 RisingWave also supports deliver the results of stream calculations to downstream systems. This can be achieved using either `CREATE SINK FROM <materialized view>` or `CREATE SINK AS <query>`.
 
-## Continue reading
+## Continue Reading
 
 [Connector - Sink](/docs/basics/connector.md#sink): Learn more about the supported data formats, encoding formats, and data delivery methods.

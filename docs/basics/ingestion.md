@@ -38,8 +38,8 @@ After creating a table or source, RisingWave will continuously consume data from
 | :: | :: | :: |
 | Support persisting data     | yes       | no |
 | Support primary key   | yes        | no |
-| Supports appending data  | yes        | yes |
-| Supports updating/deleting data   | yes, but a primary key needs to be defined       | no |
+| Support appending data  | yes        | yes |
+| Support updating/deleting data   | yes, but a primary key needs to be defined       | no |
 
 A very fundamental difference between table and source is that table will persist the consumed data, while source will not.
 
