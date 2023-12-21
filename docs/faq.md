@@ -10,6 +10,11 @@ Upon first learning RisingWave, readers from different backgrounds often ask man
 
 RisingWave is a superset of Flink SQL in terms of capabilities. Users of Flink SQL can easily migrate to RisingWave. However, RisingWave also offers additional features that are not present in Flink SQL, such as cascading materialized views.
 
+<img
+  src={require('./img/RisingWave vs Flink.jpg').default}
+  alt="RisingWave vs Flink"
+/>
+
 RisingWave uses PostgreSQL syntax, which lowers the learning curve and makes it more accessible compared to Flink SQL. However, it's important to note that there are still some minor syntax differences between RisingWave and Flink SQL, so users may need to modify certain queries.
 
 ## Is RisingWave a unified batch and streaming system?
