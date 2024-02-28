@@ -65,6 +65,12 @@ const config = {
         trackingID: "G-L2NLRWNE5T",
       },
     ],
+    [
+      '@docusaurus/plugin-google-tag-manager',
+      {
+        containerId: 'GTM-KJRVWHT7',
+      },
+    ],
   ],
 
   themeConfig:
