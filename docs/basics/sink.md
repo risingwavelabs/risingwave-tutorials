@@ -55,6 +55,8 @@ SELECT COUNT(*) FROM t1;
 First, we need to start Apache Kafka on localhost, listening on port 9092 (local deployment of Apache Kafka can be achieved using Docker Compose, specific steps are omitted here). Next, we can deliver the data from the table directly to the downstream by creating a `sink`:
 
 ```sql
+set streaming_parallelism = 1; # align with the Kafka's default partition number to prevent producer error
+
 CREATE SINK test_sink
 FROM t1 
 WITH (
@@ -86,7 +88,7 @@ Name
 Using the console, let's query the content of the Kafka topic `test_sink_topic`:
 
 ```sql
-> kafkacat -b localhost:9092 -C -t test_sink_topic -J                                                                                                                                                                                                                                                      
+> kafkacat -b localhost:9092 -C -t test_sink_topic -J
 ```
 
 Output (data will continue to be sent to Kafka until datagen stops):
