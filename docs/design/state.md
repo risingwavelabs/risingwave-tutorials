@@ -15,4 +15,4 @@ In the early design phase, RisingWave considered using RocksDB for internal stat
 * Transitioning RocksDB from single-node storage to cloud storage would entail a significant workload.
 * The compaction process in RocksDB could severely affect computation performance, and decoupling it into a separate module would be a substantial task.
 * RocksDB includes various concepts, features, and designs that are not required by RisingWave, which could potentially negatively impact overall performance.
-R* ocksDB is a generic storage solution and does not have awareness of the types and progress of computations in RisingWave, necessitating additional information transfer from RisingWave. For better coordination with computation, generic storage is not suitable.
+* RocksDB is a generic storage solution and does not have awareness of the types and progress of computations in RisingWave, necessitating additional information transfer from RisingWave. For better coordination with computation, generic storage is not suitable.
