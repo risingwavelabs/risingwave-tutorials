@@ -118,7 +118,7 @@ CREATE TABLE employees (
 )
 WITH (
  connector = 'postgres-cdc',
- hostname = 'localhost'
+ hostname = 'localhost',
  port = '5432',
  username = 'postgres',
  password = 'postgres',
