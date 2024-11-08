@@ -62,7 +62,7 @@ WITH (
 );
 ```
 
-When the `schema.registry` is specified, users no longer need to define columns for tables or sources in the DDL. RisingWave will automatically deduce the correct schema through the  `shcema.registry`. It is worth noting that users can still explicitly specify the primary key in the DDL: `CREATE TABLE t1 (PRIMARY KEY(id))`. For UPSERT and CDC formatted data, the primary key is, by default, the key of the message in the message queue.
+When the `schema.registry` is specified, users no longer need to define columns for tables or sources in the DDL. RisingWave will automatically deduce the correct schema through the  `schema.registry`. It is worth noting that users can still explicitly specify the primary key in the DDL: `CREATE TABLE t1 (PRIMARY KEY(id))`. For UPSERT and CDC formatted data, the primary key is, by default, the key of the message in the message queue.
 
 ### Change Data Capture (CDC)
 
