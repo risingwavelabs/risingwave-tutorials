@@ -70,7 +70,7 @@ In PostgreSQL, the most commonly used join types include:
 * Self Join
 
 RisingWave supports ad-hoc queries with all these join types, but does not support continuous queries for some join types. Why is that?
-The reason is that in stream processing, queries with nested loop join have excessively high complexity, leading to poor performance, and there are fewer real-world use cases for them, hence they are not supported.
+The reason is that in stream processing, queries with nested loop joins have excessively high complexity, leading to poor performance, and there are fewer real-world use cases for them, hence they are not supported.
 
 
 |  | Support ad-hoc queries<br />(`select` statement) | Support streaming queries<br />(`create materialized view` statement) |
@@ -80,7 +80,7 @@ The reason is that in stream processing, queries with nested loop join have exce
 |  Right join  | yes        | must be equal-join |
 |  Full outer join  | yes        | must be equal-join |
 |  Natural join  | yes        | yes |
-|  Corss join  | yes        | no |
+|  Cross join  | yes        | no |
 |  Self join  | yes        | must be equal-join |
 
 
