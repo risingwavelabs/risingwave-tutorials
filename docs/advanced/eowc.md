@@ -32,7 +32,7 @@ GROUP BY window_start
 EMIT ON WINDOW CLOSE;
 ```
 
-When a new record with a timestamp of `22:01:06` is added to the table `t`, a watermark message with a value of `22:01:01` is emitted. After this point, data in the table where `time <= 22:01:01` will no longer change. At this moment, computations will be performed for results with `window_end <= 22:01:00`, such as `(21:59:00, 22:00:00)`` and `(22:00:00, 22:01:00)`.
+When a new record with a timestamp of `22:01:06` is added to the table `t`, a watermark message with a value of `22:01:01` is emitted. After this point, data in the table where `time <= 22:01:01` will no longer change. At this moment, computations will be performed for results with `window_end <= 22:01:00`, such as `(21:59:00, 22:00:00)` and `(22:00:00, 22:01:00)`.
 
 ## Advantages of EMIT ON WINDOW CLOSE
 
