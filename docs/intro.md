@@ -2,6 +2,10 @@
 sidebar_position: 1
 ---
 
+:::warning Under Development
+This documentation is currently under active development. Some sections may be incomplete or subject to change. We're working hard to provide you with the most up-to-date and accurate information.
+:::
+
 # Getting Started with RisingWave
 
 Welcome to the RisingWave tutorial! In this guide, you'll learn how to build real-time data processing applications using RisingWave, a powerful distributed SQL streaming database.
@@ -68,7 +72,7 @@ But RisingWave does more. It provides both **online and offline storage**:
   style={{maxWidth: '800px', margin: '20px auto'}}
 />
 
-## �� Learning Path
+## 🎮 Learning Path
 
 ### Getting Started (30 minutes)
 1. [Install RisingWave](install.md)
