@@ -2,9 +2,7 @@
 sidebar_position: 1
 ---
 
-:::warning Under Development
-This documentation is currently under active development. Some sections may be incomplete or subject to change. We're working hard to provide you with the most up-to-date and accurate information.
-:::
+# Quick Install
 
 # Getting Started with RisingWave
 
